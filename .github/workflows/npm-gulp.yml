@@ -14,18 +14,19 @@ jobs:
         node-version: [18.x]
 
     steps:
+    - name: Pull app from Github
     - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Install/Update packages
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Build
+    - name: Build DSP Application
       run: |
         npm install
         npm run build
         
-    - name: Deploy to IIS      
+    - name: Deploy DS Portal to IIS      
       run: |
         xcopy /s /y dist\my-app\* C:\inetpub\wwwroot\CICD
