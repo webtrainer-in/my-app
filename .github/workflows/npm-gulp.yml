@@ -17,7 +17,7 @@ jobs:
     - name: Pull app from Github
     - uses: actions/checkout@v3
 
-    - name: Install/Update packages
+    - name: Install or Update packages
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
@@ -27,6 +27,6 @@ jobs:
         npm install
         npm run build
         
-    - name: Deploy DS Portal to IIS      
+    - name: Deploy DS Portal on IIS      
       run: |
         xcopy /s /y dist\my-app\* C:\inetpub\wwwroot\CICD
