@@ -14,7 +14,6 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - name: Pull app from Github
     - uses: actions/checkout@v3
 
     - name: Install or Update packages
