@@ -28,4 +28,4 @@ jobs:
         
     - name: Deploy to IIS      
       run: |
-        xcopy /s /y .\my-app\* C:\inetpub\wwwroot\CICD
+        xcopy /s /y dist\my-app\* C:\inetpub\wwwroot\CICD
