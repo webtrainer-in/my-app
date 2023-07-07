@@ -29,3 +29,9 @@ jobs:
     - name: Deploy DS Portal on IIS      
       run: |
         xcopy /s /y dist\my-app\* C:\inetpub\wwwroot\CICD
+        
+    - name: Build API - Restore dependency
+      run: dotnet restore
+
+    - name: Build API - Build API
+      run: dotnet build --no-restore
