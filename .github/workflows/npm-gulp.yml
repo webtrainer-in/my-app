@@ -46,5 +46,7 @@ jobs:
 
     - name: Deploy DS Portal on IIS      
       run: |
+        iisreset /stop
         xcopy /s /y API\API\bin\Release\netcoreapp3.1\win-x64\publish\* C:\inetpub\wwwroot\CICD\API
+        iisreset /start
         
