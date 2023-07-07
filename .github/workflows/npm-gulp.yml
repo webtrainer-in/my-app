@@ -30,16 +30,13 @@ jobs:
       run: |
         xcopy /s /y dist\my-app\* C:\inetpub\wwwroot\CICD  
   
-    - name: Move to API Directory
-      run: cd api\api                
-
   build_and_deploy_api:
     needs: build_and_deploy_angular
     runs-on: self-hosted
     
     steps:
     - name: Build API - Restore dependency
-      run: dotnet restore
+      run: dotnet restore api\api\api.csproj
 
     - name: Build API - Build API
-      run: dotnet build --no-restore
+      run: dotnet build .\api\api\api.csproj --no-restore
