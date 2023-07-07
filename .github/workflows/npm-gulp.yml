@@ -34,6 +34,7 @@ jobs:
       run: cd api\api                
 
   build_and_deploy_api:
+    needs: build_and_deploy_angular
     runs-on: self-hosted
     
     steps:
