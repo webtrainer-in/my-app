@@ -2,7 +2,7 @@ name: Build and Deploy on Dev
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "dev" ]
   
   workflow_dispatch:
 
