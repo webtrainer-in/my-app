@@ -1,4 +1,4 @@
-name: Scheduler2_CICD
+name: Scheduler1_CICD
 
 on:
   workflow_dispatch:
