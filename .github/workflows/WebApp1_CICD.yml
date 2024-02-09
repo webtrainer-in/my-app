@@ -1,4 +1,4 @@
-name: Scheduler1_CICD
+name: WebApp1_CICD
 
 on:
   workflow_dispatch:
