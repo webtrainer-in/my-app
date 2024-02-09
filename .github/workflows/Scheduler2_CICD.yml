@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Building for Development
-      - run: echo "Running Step 1"
+        run: echo "Running Step 1"
 
   Build_Production:
     if: startsWith(github.ref, 'refs/heads/master')
@@ -25,4 +25,4 @@ jobs:
 
     steps:
       - name: Building for Production
-      - run: echo "Running Step 1"
+        run: echo "Running Step 1"
