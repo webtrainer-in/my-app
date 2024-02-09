@@ -1,0 +1,49 @@
+name: Scheduler1_CICD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  Build:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install or Update packages
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Build DSP Application
+      run: |
+        npm install
+        npm run build
+        
+    - name: Deploy DS Portal on IIS      
+      run: |
+        xcopy /s /y dist\my-app\* C:\inetpub\wwwroot\CICD  
+  
+  build_and_deploy_api:
+    needs: build_and_deploy_angular
+    runs-on: self-hosted
+    
+    steps:
+    - name: Build API - Restore dependency
+      run: dotnet restore api\api\api.csproj
+
+    - name: Build API - Build API
+      run: dotnet build .\api\api\api.csproj --no-restore
+      
+    - name: Publish API    
+      run: dotnet publish .\api\api\api.csproj --framework netcoreapp3.1 --runtime win-x64 -c Release --self-contained false
+
+    - name: Deploy DS Portal on IIS      
+      run: |
+        iisreset /stop
+        xcopy /s /y API\API\bin\Release\netcoreapp3.1\win-x64\publish\* C:\inetpub\wwwroot\CICD\API
+        iisreset /start
+        
