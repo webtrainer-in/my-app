@@ -2,6 +2,9 @@ name: Scheduler2_CICD
 
 on:
   workflow_dispatch:
+  push:
+   paths:
+    - 'API/**'
 
 jobs:
   Build:
@@ -12,6 +15,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        path: 'API'
 
     - name: Install or Update packages
       uses: actions/setup-node@v3
