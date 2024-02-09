@@ -5,50 +5,24 @@ on:
   push:
    branches:
     - 'master'
+    - 'story*'
+    - 'bug*'
    paths:
     - 'API/**'
 
 jobs:
-  Build:
+  Build_Development:
+    if: startsWith(github.ref, 'refs/heads/story') || startsWith(github.ref, 'refs/heads/bug')
     runs-on: self-hosted
-    strategy:
-      matrix:
-        node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v3
+      - name: Building for Development
+      - run: echo "Running Step 1"
 
-    - name: Install or Update packages
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-
-    - name: Build DSP Application
-      run: |
-        npm install
-        npm run build
-        
-    - name: Deploy DS Portal on IIS      
-      run: |
-        xcopy /s /y dist\my-app\* C:\inetpub\wwwroot\CICD  
-  
-  Deploy:
-    needs: Build
+  Build_Production:
+    if: startsWith(github.ref, 'refs/heads/master')
     runs-on: self-hosted
-    
+
     steps:
-    - name: Build API - Restore dependency
-      run: dotnet restore api\api\api.csproj
-
-    - name: Build API - Build API
-      run: dotnet build .\api\api\api.csproj --no-restore
-      
-    - name: Publish API    
-      run: dotnet publish .\api\api\api.csproj --framework netcoreapp3.1 --runtime win-x64 -c Release --self-contained false
-
-    - name: Deploy DS Portal on IIS      
-      run: |
-        iisreset /stop
-        xcopy /s /y API\API\bin\Release\netcoreapp3.1\win-x64\publish\* C:\inetpub\wwwroot\CICD\API
-        iisreset /start
-        
+      - name: Building for Production
+      - run: echo "Running Step 1"
