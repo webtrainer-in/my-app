@@ -3,6 +3,8 @@ name: Scheduler2_CICD
 on:
   workflow_dispatch:
   push:
+   branches:
+    - 'master'
    paths:
     - 'API/**'
 
