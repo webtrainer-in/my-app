@@ -13,7 +13,7 @@
 # User-specific files test(MonoDevelop/Xamarin Studio)
 *.userprefs
 
-# Mono auto generated files test
+# Mono auto generated files
 mono_crash.*
 
 # Build results
